@@ -18,4 +18,3 @@ def prediction(request):
 
     return render(request, 'prediction.html', {'ids': results})
 
-

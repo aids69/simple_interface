@@ -4,18 +4,52 @@
         <meta charset="utf-8">
         <title>App</title>
         <style>
+            body {
+                text-align: center;
+                font-size: 20px;
+            }
             .header {
                 padding: 60px;
                 padding-bottom: 30px;
-                text-align: center;
                 background: #1abc9c;
                 color: white;
-                font-size: 30px;
+            }
+            .container {
+                padding: 10px 30px;
+                display: block;
+                display: flex;
+                justify-content: space-between;
+            }
+            .column {
+                width: 33%;
+                display: inline-block;
+                height: 350px;
+            }
+            .pic {
+                max-width: 90%;
+                max-height: 75%;
             }
         </style>
+        {% load staticfiles %}
     </head>
     <body>
         <h1 class="header">Prediction is...</h1>
-        <h2 class="header">{{ ids }}</h2>
+        <div class="container">
+            <div class="column">
+                <div class="name">Bayes</div>
+                <div class="cluster">{{ ids.0 }}</div>
+                <img class="pic" src={{"static/"|add:ids.0|add:".jpg"}}>
+            </div>
+            <div class="column">
+                <div class="name">Clusters</div>
+                <div class="cluster">{{ ids.1 }}</div>
+                <img class="pic" src={{"static/"|add:ids.1|add:".jpg"}}>
+            </div>
+            <div class="column">
+                <div class="name">Word2vec</div>
+                <div class="cluster">{{ ids.2 }}</div>
+                <img class="pic" src={{"static/"|add:ids.2|add:".jpg"}}>
+            </div>
+        </div>
     </body>
 </html>
