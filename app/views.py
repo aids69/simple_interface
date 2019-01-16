@@ -1,32 +1,21 @@
-from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import NameForm
+from subprocess import call
 
 
-# Create your views here.
-class HomePageView(TemplateView):
-    def get(self, request, **kwargs):
-        return render(request, 'index.html', context=None)
-
-# https://docs.djangoproject.com/en/2.1/topics/forms/
-
-
-def get_name(request):
+def basic(request):
     if request.method == 'POST':
-        print(request)
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+        return prediction(request)
+    return render(request, 'index.html')
 
-            # if a GET (or any other method) we'll create a blank form
-        else:
-            form = NameForm()
 
-            return render(request, 'index.html', {'form': form})
+def prediction(request):
+    form = NameForm(request.POST)
+    id = form.data['prediction']
+    call('python3 index.py ' + str(id), cwd='/home/ftlka/Documents/diploma/brute_classifier', shell=True)
+    file = open('results.txt', 'r')
+    results = file.read().split(' ')
+
+    return render(request, 'prediction.html', {'ids': results})
+
 

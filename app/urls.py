@@ -3,5 +3,6 @@ from app import views
 
 
 urlpatterns = [
-    path('', views.HomePageView.as_view()),
+    path('', views.basic, name='basic'),
+    path('prediction', views.prediction, name='prediction')
 ]
