@@ -55,8 +55,9 @@ def get_group_data(id):
 
 
 def get_detailed_groups_info(ids):
+    ids = [str(id) for id in ids]
     res = requests.get('{}{}group_ids={}&v=5.21&access_token={}&fields={}'
-                       .format(URL, GET_DETAILED_GROUPS, ids, token, ','.join(GROUP_FIELDS)))
+                       .format(URL, GET_DETAILED_GROUPS, ','.join(ids), token, ','.join(GROUP_FIELDS)))
     return json.loads(res.content.decode())['response']
 
 
