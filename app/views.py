@@ -51,7 +51,7 @@ def get_group_data(id):
         Returns json with communities:
         {'count': 9, 'items': [124350, 342746743, 7435262,...]}
     """
-    res = requests.get('{}{}user_id={}&v=5.21&access_token={}&count=1000'
+    res = requests.get('{}{}user_id={}&v=5.21&access_token={}&count=26'
                        .format(URL, GET_GROUPS, id, token))
     return json.loads(res.content.decode())['response']
 
@@ -69,7 +69,7 @@ def prediction(request):
 
     user = get_user_data(id)
     id = user['id']  # for cases where screen_name is passed
-    communities_ids = get_group_data(id)['items'][:26]
+    communities_ids = get_group_data(id)['items']
     communities = get_detailed_groups_info(communities_ids) if communities_ids else []
 
     results = index.new_proccess_req(id, user, communities)
