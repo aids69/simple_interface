@@ -7,6 +7,8 @@ import json
 import requests
 import sys
 
+from .values import values
+
 sys.path.append('../')
 from brute_classifier import index
 
@@ -66,11 +68,16 @@ def prediction(request):
     id = form.data['prediction']
 
     user = get_user_data(id)
+    id = user['id']  # for cases where screen_name is passed
     communities_ids = get_group_data(id)['items'][:26]
-    communities = get_detailed_groups_info(communities_ids)
+    communities = get_detailed_groups_info(communities_ids) if communities_ids else []
 
     results = index.new_proccess_req(id, user, communities)
+    vals = [values[result] for result in results]
+
     results = [str(result) for result in results]
 
     return render(request, 'prediction.html',
-                  {'ids': results, 'name': '{} {}'.format(user['first_name'], user['last_name'])})
+                  {'ids': results,
+                   'name': '{} {}'.format(user['first_name'], user['last_name']),
+                   'values': vals})

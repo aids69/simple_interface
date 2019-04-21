@@ -28,6 +28,9 @@
                 display: inline-block;
                 height: 350px;
             }
+            .cluster_name {
+                padding: 5px 0 10px;
+            }
             .pic {
                 max-width: 90%;
                 max-height: 75%;
@@ -41,16 +44,19 @@
             <div class="column">
                 <div class="name">Brute</div>
                 <div class="cluster">{{ ids.0 }}</div>
+                <div class="cluster_name">{{ values.0 }}</div>
                 <img class="pic" src={{"static/"|add:ids.0|add:".jpg"}}>
             </div>
             <div class="column">
                 <div class="name">Clusters</div>
                 <div class="cluster">{{ ids.1 }}</div>
+                <div class="cluster_name">{{ values.1 }}</div>
                 <img class="pic" src={{"static/"|add:ids.1|add:".jpg"}}>
             </div>
             <div class="column">
                 <div class="name">Word2vec</div>
                 <div class="cluster">{{ ids.2 }}</div>
+                <div class="cluster_name">{{ values.2 }}</div>
                 <img class="pic" src={{"static/"|add:ids.2|add:".jpg"}}>
             </div>
         </div>
